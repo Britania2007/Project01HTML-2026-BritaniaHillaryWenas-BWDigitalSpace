@@ -1,0 +1,1645 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - BW Digital Space</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            color: #1a1a2e;
+        }
+
+        /* ========================================== */
+        /* LIGHTBOX                                   */
+        /* ========================================== */
+        .lb {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.92);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lb:target {
+            display: flex;
+        }
+
+        .lb img {
+            max-width: 88%;
+            max-height: 82%;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .lb-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #ffffff;
+            font-size: 36px;
+            text-decoration: none;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .lb-close:hover {
+            background-color: rgba(255, 255, 255, 0.25);
+        }
+
+        .lb-prev,
+        .lb-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ffffff;
+            font-size: 36px;
+            text-decoration: none;
+            width: 55px;
+            height: 55px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .lb-prev {
+            left: 20px;
+        }
+
+        .lb-next {
+            right: 20px;
+        }
+
+        .lb-prev:hover,
+        .lb-next:hover {
+            background-color: rgba(255, 255, 255, 0.25);
+        }
+
+        .lb-count {
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #8bacd1;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 13px;
+            letter-spacing: 3px;
+        }
+
+        /* ========================================== */
+        /* NAVIGATION                                 */
+        /* ========================================== */
+        .navbar {
+            background-color: #1a1a2e;
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .navbar-brand {
+            color: #4a90d9;
+            font-size: 22px;
+            font-weight: bold;
+            letter-spacing: 3px;
+        }
+
+        .navbar-brand a {
+            color: #4a90d9;
+            text-decoration: none;
+        }
+
+        .navbar-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 0;
+        }
+
+        .navbar-links a {
+            color: #8bacd1;
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 15px;
+            letter-spacing: 1px;
+        }
+
+        .navbar-links a.active {
+            color: #4a90d9;
+            font-weight: bold;
+            border-bottom: 2px solid #4a90d9;
+            padding-bottom: 4px;
+        }
+
+        /* ========================================== */
+        /* HERO                                       */
+        /* ========================================== */
+        .hero {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            color: #4a90d9;
+            font-size: 42px;
+            letter-spacing: 8px;
+            margin: 0 0 10px 0;
+            font-weight: 300;
+        }
+
+        .hero hr {
+            width: 80px;
+            border: none;
+            border-top: 3px solid #4a90d9;
+            margin: 15px auto;
+        }
+
+        .hero p {
+            color: #8bacd1;
+            font-size: 16px;
+            letter-spacing: 4px;
+            margin: 0;
+            font-weight: 300;
+        }
+
+        /* ========================================== */
+        /* MAIN CONTENT                               */
+        /* ========================================== */
+        .main-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 50px 40px;
+        }
+
+        /* ========================================== */
+        /* SECTION HEADERS                            */
+        /* ========================================== */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .section-header span {
+            color: #4a90d9;
+            font-size: 18px;
+            letter-spacing: 4px;
+        }
+
+        .section-header h2 {
+            color: #1a1a2e;
+            font-size: 26px;
+            letter-spacing: 3px;
+            margin: 0;
+        }
+
+        .section-line {
+            width: 60px;
+            border: none;
+            border-top: 3px solid #4a90d9;
+            margin: 0 0 30px 0;
+        }
+
+        .category-section {
+            margin-bottom: 60px;
+        }
+
+        /* ========================================== */
+        /* PHOTO CARDS (3 columns)                    */
+        /* ========================================== */
+        .photo-grid {
+            display: flex;
+            gap: 35px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .photo-card {
+            margin: 0;
+            flex: 1;
+            max-width: 290px;
+            min-width: 240px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0e8f0;
+        }
+
+        .photo-card.hobby-card {
+            background-color: #c0d9ee;
+        }
+
+        .photo-card a {
+            display: block;
+        }
+
+        .photo-card img {
+            display: block;
+            width: 100%;
+            height: 480px;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        .photo-card figcaption {
+            padding: 18px 16px;
+            border-top: 3px solid #4a90d9;
+        }
+
+        .photo-card figcaption p {
+            color: #333;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 13px;
+            line-height: 1.8;
+            margin: 0;
+            font-style: italic;
+            text-align: justify;
+        }
+
+        .photo-card figcaption p.has-link {
+            margin-bottom: 12px;
+        }
+
+        /* ========================================== */
+        /* ACADEMIC FULL WIDTH FIGURE                 */
+        /* ========================================== */
+        .full-figure {
+            margin: 0 0 35px 0;
+            background-color: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0e8f0;
+        }
+
+        .full-figure a {
+            display: block;
+        }
+
+        .full-figure img {
+            display: block;
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        .full-figure figcaption {
+            padding: 20px 22px;
+            border-top: 3px solid #4a90d9;
+        }
+
+        .full-figure figcaption p {
+            color: #333;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 14px;
+            line-height: 1.8;
+            margin: 0;
+            font-style: italic;
+            text-align: justify;
+        }
+
+        /* ACADEMIC 2 columns */
+        .academic-duo {
+            display: flex;
+            gap: 35px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .academic-duo figure {
+            margin: 0;
+            flex: 1;
+            max-width: 450px;
+            min-width: 260px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0e8f0;
+        }
+
+        .academic-duo figure a {
+            display: block;
+        }
+
+        .academic-duo figure img {
+            display: block;
+            width: 100%;
+            height: 480px;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        .academic-duo figcaption {
+            padding: 18px 16px;
+            border-top: 3px solid #4a90d9;
+        }
+
+        .academic-duo figcaption p {
+            color: #333;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 13px;
+            line-height: 1.8;
+            margin: 0;
+            font-style: italic;
+            text-align: justify;
+        }
+
+        /* ========================================== */
+        /* COLLAGE SECTION                            */
+        /* ========================================== */
+        .collage-wrap {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 40px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .collage-title {
+            color: #8bacd1;
+            text-align: center;
+            font-size: 14px;
+            letter-spacing: 6px;
+            margin: 0 0 25px 0;
+            font-weight: 300;
+            font-family: Georgia, 'Times New Roman', serif;
+        }
+
+        .collage-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .collage-row-1 {
+            height: 360px;
+        }
+
+        .collage-row-2 {
+            height: 380px;
+        }
+
+        .collage-row-3 {
+            margin-bottom: 8px;
+        }
+
+        .collage-row-4 {
+            height: 380px;
+            margin-bottom: 0;
+        }
+
+        .collage-row a {
+            display: block;
+        }
+
+        .collage-row img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+            display: block;
+            cursor: pointer;
+        }
+
+        .collage-single img {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+            border-radius: 8px;
+            display: block;
+            cursor: pointer;
+        }
+
+        .collage-single a {
+            display: block;
+        }
+
+        /* ========================================== */
+        /* POLAROID SECTION                           */
+        /* ========================================== */
+        .polaroid-wrap {
+            background: linear-gradient(145deg, #c2d6f2 0%, #a8c4e8 30%, #d4bde8 60%, #f0c6d4 100%);
+            border-radius: 16px;
+            padding: 40px 30px;
+            margin-top: 40px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .polaroid-stars {
+            text-align: center;
+            color: #1a1a2e;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 11px;
+            letter-spacing: 6px;
+            margin: 0 0 4px 0;
+        }
+
+        .polaroid-heading {
+            color: #1a1a2e;
+            text-align: center;
+            font-size: 18px;
+            letter-spacing: 5px;
+            margin: 0 0 4px 0;
+            font-weight: 400;
+            font-family: Georgia, 'Times New Roman', serif;
+        }
+
+        .polaroid-sub {
+            text-align: center;
+            color: #3a3a5e;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 12px;
+            font-style: italic;
+            letter-spacing: 3px;
+            margin: 0 0 35px 0;
+        }
+
+        .polaroid-row {
+            display: flex;
+            gap: 35px;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .polaroid-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .polaroid-row-2 {
+            gap: 45px;
+        }
+
+        .polaroid {
+            padding: 12px 12px 50px 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
+            max-width: 200px;
+            flex: 1;
+            min-width: 140px;
+            border: 1px solid rgba(255, 255, 255, 0.7);
+        }
+
+        .polaroid a {
+            display: block;
+        }
+
+        .polaroid img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            display: block;
+            border: 1px solid #ddd;
+            cursor: pointer;
+        }
+
+        .polaroid p {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 11px;
+            color: #4a5568;
+            text-align: center;
+            margin: 14px 0 0 0;
+            font-style: italic;
+            letter-spacing: 1px;
+        }
+
+        .polaroid-c1 {
+            background-color: #e8f0fa;
+            transform: rotate(-3deg);
+        }
+
+        .polaroid-c2 {
+            background-color: #f0ecf8;
+            transform: rotate(2deg);
+        }
+
+        .polaroid-c3 {
+            background-color: #faeef0;
+            transform: rotate(-1.5deg);
+        }
+
+        .polaroid-c4 {
+            background-color: #e6f5ee;
+            transform: rotate(2.5deg);
+            max-width: 220px;
+        }
+
+        .polaroid-c5 {
+            background-color: #faf0e6;
+            transform: rotate(-2deg);
+            max-width: 220px;
+        }
+
+        .polaroid-land {
+            max-width: 270px;
+            min-width: 160px;
+        }
+
+        .polaroid-land img {
+            height: 160px;
+        }
+
+        .polaroid-c6 {
+            background-color: #e4f0f9;
+            transform: rotate(-2deg);
+        }
+
+        .polaroid-c7 {
+            background-color: #e4f0f9;
+            transform: rotate(1.5deg);
+        }
+
+        .polaroid-c8 {
+            background-color: #eee6f5;
+            transform: rotate(-3deg);
+        }
+
+        /* Spotify Link */
+        .spotify-link {
+            display: inline-block;
+            color: #1DB954;
+            text-decoration: none;
+            font-size: 11px;
+            letter-spacing: 1px;
+            font-weight: 600;
+            border: 1px solid rgba(29, 185, 84, 0.3);
+            padding: 6px 14px;
+            border-radius: 20px;
+            background-color: rgba(29, 185, 84, 0.08);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* IG links */
+        .ig-links {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .ig-link {
+            display: inline-block;
+            color: #4a90d9;
+            text-decoration: none;
+            font-size: 10px;
+            letter-spacing: 1px;
+            font-weight: 600;
+            border: 1px solid rgba(74, 144, 217, 0.3);
+            padding: 5px 12px;
+            border-radius: 20px;
+            background-color: rgba(74, 144, 217, 0.08);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* ========================================== */
+        /* DIVIDER                                    */
+        /* ========================================== */
+        .divider {
+            text-align: center;
+            margin: 10px 0 50px 0;
+        }
+
+        .divider span {
+            color: #4a90d9;
+            font-size: 18px;
+            letter-spacing: 10px;
+        }
+
+        /* ========================================== */
+        /* CLOSING QUOTE                              */
+        /* ========================================== */
+        .closing-section {
+            text-align: center;
+            padding: 20px 20px 10px 20px;
+        }
+
+        .closing-section blockquote {
+            margin: 0;
+            padding: 0;
+        }
+
+        .closing-section blockquote p {
+            color: #0f3460;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 20px;
+            font-style: italic;
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        .closing-section hr {
+            width: 40px;
+            border: none;
+            border-top: 3px solid #4a90d9;
+            margin: 20px auto 0 auto;
+        }
+
+        /* ========================================== */
+        /* FOOTER                                     */
+        /* ========================================== */
+        footer {
+            background-color: #1a1a2e;
+            padding: 25px 40px;
+            text-align: center;
+        }
+
+        footer .footer-brand {
+            color: #4a90d9;
+            font-size: 13px;
+            letter-spacing: 2px;
+            margin: 0 0 5px 0;
+        }
+
+        footer .footer-copy {
+            color: #556b8a;
+            font-size: 12px;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        /* ========================================== */
+        /*  TABLET  (max-width: 768px)                */
+        /* ========================================== */
+        @media (max-width: 768px) {
+
+            .navbar {
+                padding: 14px 20px;
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+            }
+
+            .navbar-brand {
+                font-size: 18px;
+                letter-spacing: 2px;
+            }
+
+            .navbar-links {
+                justify-content: center;
+            }
+
+            .navbar-links a {
+                margin-left: 15px;
+                font-size: 13px;
+            }
+
+            .hero {
+                padding: 40px 20px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+                letter-spacing: 5px;
+            }
+
+            .hero p {
+                font-size: 13px;
+                letter-spacing: 3px;
+            }
+
+            .main-content {
+                padding: 30px 20px;
+            }
+
+            .section-header h2 {
+                font-size: 22px;
+            }
+
+            .photo-grid {
+                gap: 25px;
+            }
+
+            .photo-card {
+                max-width: 100%;
+                min-width: unset;
+            }
+
+            .photo-card img {
+                height: 400px;
+            }
+
+            .full-figure img {
+                height: 350px;
+            }
+
+            .academic-duo {
+                gap: 25px;
+            }
+
+            .academic-duo figure {
+                min-width: unset;
+            }
+
+            .academic-duo figure img {
+                height: 380px;
+            }
+
+            .collage-wrap {
+                padding: 20px;
+            }
+
+            .collage-row-1 {
+                height: 250px;
+            }
+
+            .collage-row-2 {
+                height: 260px;
+            }
+
+            .collage-single img {
+                height: 300px;
+            }
+
+            .collage-row-4 {
+                height: 260px;
+            }
+
+            .polaroid-wrap {
+                padding: 30px 20px;
+            }
+
+            .polaroid-heading {
+                font-size: 16px;
+                letter-spacing: 3px;
+            }
+
+            .polaroid-row {
+                gap: 20px;
+            }
+
+            .polaroid {
+                max-width: 160px;
+                min-width: 120px;
+            }
+
+            .polaroid img {
+                height: 220px;
+            }
+
+            .polaroid-land img {
+                height: 120px;
+            }
+
+            .polaroid-c4,
+            .polaroid-c5 {
+                max-width: 180px;
+            }
+
+            .polaroid-land {
+                max-width: 200px;
+            }
+
+            .closing-section blockquote p {
+                font-size: 17px;
+            }
+
+            footer {
+                padding: 20px;
+            }
+
+            /* Lightbox mobile adjustments */
+            .lb-close {
+                top: 12px;
+                right: 12px;
+                width: 40px;
+                height: 40px;
+                font-size: 28px;
+            }
+
+            .lb-prev,
+            .lb-next {
+                width: 40px;
+                height: 40px;
+                font-size: 24px;
+            }
+
+            .lb-prev {
+                left: 8px;
+            }
+
+            .lb-next {
+                right: 8px;
+            }
+
+            .lb img {
+                max-width: 92%;
+                max-height: 75%;
+            }
+
+            .lb-count {
+                font-size: 11px;
+                bottom: 15px;
+            }
+        }
+
+        /* ========================================== */
+        /*  MOBILE  (max-width: 480px)                */
+        /* ========================================== */
+        @media (max-width: 480px) {
+
+            .navbar {
+                padding: 12px 15px;
+            }
+
+            .navbar-brand {
+                font-size: 15px;
+                letter-spacing: 1px;
+            }
+
+            .navbar-links a {
+                margin: 0 8px;
+                font-size: 12px;
+            }
+
+            .hero {
+                padding: 30px 15px;
+            }
+
+            .hero h1 {
+                font-size: 20px;
+                letter-spacing: 3px;
+            }
+
+            .hero p {
+                font-size: 11px;
+                letter-spacing: 2px;
+            }
+
+            .main-content {
+                padding: 25px 15px;
+            }
+
+            .section-header h2 {
+                font-size: 20px;
+                letter-spacing: 2px;
+            }
+
+            .section-header span {
+                font-size: 14px;
+            }
+
+            .photo-grid {
+                flex-direction: column;
+                align-items: center;
+                gap: 25px;
+            }
+
+            .photo-card {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .photo-card img {
+                height: 360px;
+            }
+
+            .full-figure img {
+                height: 250px;
+            }
+
+            .academic-duo {
+                flex-direction: column;
+                align-items: center;
+                gap: 25px;
+            }
+
+            .academic-duo figure {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .academic-duo figure img {
+                height: 320px;
+            }
+
+            .collage-wrap {
+                padding: 15px;
+            }
+
+            .collage-title {
+                font-size: 11px;
+                letter-spacing: 4px;
+                margin-bottom: 15px;
+            }
+
+            .collage-row-1 {
+                height: 180px;
+            }
+
+            .collage-row-2 {
+                height: 200px;
+            }
+
+            .collage-single img {
+                height: 220px;
+            }
+
+            .collage-row-4 {
+                height: 180px;
+                flex-wrap: wrap;
+            }
+
+            .polaroid-wrap {
+                padding: 20px 12px;
+            }
+
+            .polaroid-heading {
+                font-size: 14px;
+                letter-spacing: 2px;
+            }
+
+            .polaroid-sub {
+                font-size: 10px;
+                letter-spacing: 2px;
+                margin-bottom: 25px;
+            }
+
+            .polaroid-row {
+                flex-direction: column;
+                align-items: center;
+                gap: 25px;
+                margin-bottom: 25px;
+            }
+
+            .polaroid {
+                max-width: 200px;
+                min-width: unset;
+                width: 75%;
+            }
+
+            .polaroid img {
+                height: 260px;
+            }
+
+            .polaroid-c4,
+            .polaroid-c5 {
+                max-width: 200px;
+            }
+
+            .polaroid-land {
+                max-width: 200px;
+                width: 75%;
+            }
+
+            .polaroid-land img {
+                height: 140px;
+            }
+
+            .divider {
+                margin: 10px 0 30px 0;
+            }
+
+            .category-section {
+                margin-bottom: 40px;
+            }
+
+            .closing-section {
+                padding: 15px 10px 10px 10px;
+            }
+
+            .closing-section blockquote p {
+                font-size: 15px;
+                line-height: 1.7;
+            }
+
+            footer {
+                padding: 18px 15px;
+            }
+
+            footer .footer-brand {
+                font-size: 12px;
+            }
+
+            footer .footer-copy {
+                font-size: 10px;
+            }
+
+            .lb-close {
+                top: 8px;
+                right: 8px;
+                width: 36px;
+                height: 36px;
+                font-size: 24px;
+            }
+
+            .lb-prev,
+            .lb-next {
+                width: 36px;
+                height: 36px;
+                font-size: 20px;
+            }
+
+            .lb-prev {
+                left: 5px;
+            }
+
+            .lb-next {
+                right: 5px;
+            }
+
+            .lb img {
+                max-width: 95%;
+                max-height: 70%;
+                border-radius: 4px;
+            }
+
+            .lb-count {
+                font-size: 10px;
+                bottom: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ============================================ -->
+    <!-- LIGHTBOX OVERLAYS (25 images)                -->
+    <!-- ============================================ -->
+
+    <div id="lb-0" class="lb">
+        <a href="#" class="lb-close">&times;</a>
+        <a href="#lb-24" class="lb-prev">&#10094;</a>
+        <a href="#lb-1" class="lb-next">&#10095;</a>
+        <img src="assets/images/lifemoments1.jpeg" alt="Life Moments 1">
+        <span class="lb-count">1 / 25</span>
+    </div>
+
+    <div id="lb-1" class="lb">
+        <a href="#" class="lb-close">&times;</a>
+        <a href="#lb-0" class="lb-prev">&#10094;</a>
+        <a href="#lb-2" class="lb-next">&#10095;</a>
+        <img src="assets/images/lifemoments3.jpeg" alt="Life Moments 3">
+        <span class="lb-count">2 / 25</span>
+    </div>
+
+    <div id="lb-2" class="lb">
+        <a href="#" class="lb-close">&times;</a>
+        <a href="#lb-1" class="lb-prev">&#10094;</a>
+        <a href="#lb-3" class="lb-next">&#10095;</a>
+        <img src="assets/images/lifemoments2.jpeg" alt="Life Moments 2">
+        <span class="lb-count">3 / 25</span>
+    </div>
+
+    <div id="lb-3" class="lb">
+        <a href="#" class="lb-close">&times;</a>
+        <a href="#lb-2" class="lb-prev">&#10094;</a>
+        <a href="#lb-4" class="lb-next">&#10095;</a>
+        <img src="assets/images/lifemoments4.jpeg" alt="Life Moments 4">
+        <span class="lb-count">4 / 25</span>
+    </div>
+
+    <div id="lb-4" class="lb">
+        <a href="#" class="lb-close">&times;</a>
+        <a href="#lb-3" class="lb-prev">&#10094;</a>
+        <a href="#lb-5" class="lb-next">&#10095;</a>
+        <img src="assets/images/lifemoments5.jpeg" alt="Life Moments 5">
+        <span class="lb-count">5 / 25</span>
+    </div>
+
+    <div id="lb-5" class="lb">
+        <a href="#" class="lb-close">&times;</a>
+        <a href="#lb-4" class="lb-prev">&#10094;</a>
+        <a href="#lb-6" class="lb-next">&#10095;</a>
+        <img src="assets/images/lifemoments7.jpeg" alt="Life Moments 7">
+        <span class="lb-count">6 / 25</span>
+    </div>
+
+    <div id="lb-6" class="lb">
+        <a href="#" class="lb-close">&times;</a>
+        <a href="#lb-5" class="lb-prev">&#10094;</a>
+        <a href="#lb-7" class="lb-next">&#10095;</a>
+        <img src="assets/images/lifemoments8.jpeg" alt="Life Moments 8">
+        <span class="lb-count">7 / 25</span>
+    </div>
+
+    <div id="lb-7" class="lb">
+        <a href="#" class="lb-close">&times;</a>
+        <a href="#lb-6" class="lb-prev">&#10094;</a>
+        <a href="#lb-8" class="lb-next">&#10095;</a>
+        <img src="assets/images/lifemoments9.jpeg" alt="Life Moments 9">
+        <span class="lb-count">8 / 25</span>
+    </div>
+
+    <div id="lb-8" class="lb">
+        <a href="#" class="lb-close">&times;</a>
+        <a href="#lb-7" class="lb-prev">&#10094;</a>
+        <a href="#lb-9" class="lb-next">&#10095;</a>
+        <img src="assets/images/lifemoments10.jpeg" alt="Life Moments 10">
+        <span class="lb-count">9 / 25</span>
+    </div>
+
+    <div id="lb-9" class="lb">
+        <a href="#" class="lb-close">&times;</a>
+        <a href="#lb-8" class="lb-prev">&#10094;</a>
+        <a href="#lb-10" class="lb-next">&#10095;</a>
+        <img src="assets/images/lifemoments12.jpeg" alt="Life Moments 12">
+        <span class="lb-count">10 / 25</span>
+    </div>
+
+    <div id="lb-10" class="lb">
+        <a href="#" class="lb-close">&times;</a>
+        <a href="#lb-9" class="lb-prev">&#10094;</a>
+        <a href="#lb-11" class="lb-next">&#10095;</a>
+        <img src="assets/images/lifemoments11.jpeg" alt="Life Moments 11">
+        <span class="lb-count">11 / 25</span>
+    </div>
+
+    <div id="lb-11" class="lb">
+        <a href="#" class="lb-close">&times;</a>
+        <a href="#lb-10" class="lb-prev">&#10094;</a>
+        <a href="#lb-12" class="lb-next">&#10095;</a>
+        <img src="assets/images/academiclife2.jpeg" alt="Academic Life 2">
+        <span class="lb-count">12 / 25</span>
+    </div>
+
+    <div id="lb-12" class="lb">
+        <a href="#" class="lb-close">&times;</a>
+        <a href="#lb-11" class="lb-prev">&#10094;</a>
+        <a href="#lb-13" class="lb-next">&#10095;</a>
+        <img src="assets/images/academiclife1.jpeg" alt="Academic Life 1">
+        <span class="lb-count">13 / 25</span>
+    </div>
+
+    <div id="lb-13" class="lb">
+        <a href="#" class="lb-close">&times;</a>
+        <a href="#lb-12" class="lb-prev">&#10094;</a>
+        <a href="#lb-14" class="lb-next">&#10095;</a>
+        <img src="assets/images/academiclife3.jpeg" alt="Academic Life 3">
+        <span class="lb-count">14 / 25</span>
+    </div>
+
+    <div id="lb-14" class="lb">
+        <a href="#" class="lb-close">&times;</a>
+        <a href="#lb-13" class="lb-prev">&#10094;</a>
+        <a href="#lb-15" class="lb-next">&#10095;</a>
+        <img src="assets/images/academiclife4.jpeg" alt="Academic Life 4">
+        <span class="lb-count">15 / 25</span>
+    </div>
+
+    <div id="lb-15" class="lb">
+        <a href="#" class="lb-close">&times;</a>
+        <a href="#lb-14" class="lb-prev">&#10094;</a>
+        <a href="#lb-16" class="lb-next">&#10095;</a>
+        <img src="assets/images/academiclife5.jpeg" alt="Academic Life 5">
+        <span class="lb-count">16 / 25</span>
+    </div>
+
+    <div id="lb-16" class="lb">
+        <a href="#" class="lb-close">&times;</a>
+        <a href="#lb-15" class="lb-prev">&#10094;</a>
+        <a href="#lb-17" class="lb-next">&#10095;</a>
+        <img src="assets/images/academiclife6.jpeg" alt="Academic Life 6">
+        <span class="lb-count">17 / 25</span>
+    </div>
+
+    <div id="lb-17" class="lb">
+        <a href="#" class="lb-close">&times;</a>
+        <a href="#lb-16" class="lb-prev">&#10094;</a>
+        <a href="#lb-18" class="lb-next">&#10095;</a>
+        <img src="assets/images/academiclife8.jpeg" alt="Academic Life 8">
+        <span class="lb-count">18 / 25</span>
+    </div>
+
+    <div id="lb-18" class="lb">
+        <a href="#" class="lb-close">&times;</a>
+        <a href="#lb-17" class="lb-prev">&#10094;</a>
+        <a href="#lb-19" class="lb-next">&#10095;</a>
+        <img src="assets/images/academiclife10.jpeg" alt="Academic Life 10">
+        <span class="lb-count">19 / 25</span>
+    </div>
+
+    <div id="lb-19" class="lb">
+        <a href="#" class="lb-close">&times;</a>
+        <a href="#lb-18" class="lb-prev">&#10094;</a>
+        <a href="#lb-20" class="lb-next">&#10095;</a>
+        <img src="assets/images/academiclife7.jpeg" alt="Academic Life 7">
+        <span class="lb-count">20 / 25</span>
+    </div>
+
+    <div id="lb-20" class="lb">
+        <a href="#" class="lb-close">&times;</a>
+        <a href="#lb-19" class="lb-prev">&#10094;</a>
+        <a href="#lb-21" class="lb-next">&#10095;</a>
+        <img src="assets/images/academiclife9.jpeg" alt="Academic Life 9">
+        <span class="lb-count">21 / 25</span>
+    </div>
+
+    <div id="lb-21" class="lb">
+        <a href="#" class="lb-close">&times;</a>
+        <a href="#lb-20" class="lb-prev">&#10094;</a>
+        <a href="#lb-22" class="lb-next">&#10095;</a>
+        <img src="assets/images/academiclife11.jpeg" alt="Academic Life 11">
+        <span class="lb-count">22 / 25</span>
+    </div>
+
+    <div id="lb-22" class="lb">
+        <a href="#" class="lb-close">&times;</a>
+        <a href="#lb-21" class="lb-prev">&#10094;</a>
+        <a href="#lb-23" class="lb-next">&#10095;</a>
+        <img src="assets/images/hobbies1.jpeg" alt="Hobbies 1">
+        <span class="lb-count">23 / 25</span>
+    </div>
+
+    <div id="lb-23" class="lb">
+        <a href="#" class="lb-close">&times;</a>
+        <a href="#lb-22" class="lb-prev">&#10094;</a>
+        <a href="#lb-24" class="lb-next">&#10095;</a>
+        <img src="assets/images/hobbies2.jpeg" alt="Hobbies 2">
+        <span class="lb-count">24 / 25</span>
+    </div>
+
+    <div id="lb-24" class="lb">
+        <a href="#" class="lb-close">&times;</a>
+        <a href="#lb-23" class="lb-prev">&#10094;</a>
+        <a href="#lb-0" class="lb-next">&#10095;</a>
+        <img src="assets/images/hobbies3.jpeg" alt="Hobbies 3">
+        <span class="lb-count">25 / 25</span>
+    </div>
+
+
+    <!-- ============================================ -->
+    <!-- NAVIGATION BAR                               -->
+    <!-- ============================================ -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <a href="index.html">&#9670; BW DIGITAL SPACE</a>
+        </div>
+        <div class="navbar-links">
+            <a href="index.html">HOME</a>
+            <a href="gallery.html" class="active">GALLERY</a>
+            <a href="blog.html">BLOG</a>
+            <a href="contact.html">CONTACT</a>
+        </div>
+    </nav>
+
+
+    <!-- ============================================ -->
+    <!-- HERO SECTION                                 -->
+    <!-- ============================================ -->
+    <header class="hero">
+        <h1>MY VISUAL STORY</h1>
+        <hr>
+        <p>MOMENTS &bull; MEMORIES &bull; MOOD</p>
+    </header>
+
+
+    <!-- ============================================ -->
+    <!-- MAIN CONTENT                                 -->
+    <!-- ============================================ -->
+    <main class="main-content">
+
+        <!-- ======================================== -->
+        <!-- CATEGORY 1: LIFE MOMENTS                 -->
+        <!-- ======================================== -->
+        <section class="category-section">
+
+            <div class="section-header">
+                <span>&#9670;&#9670;</span>
+                <h2>Life Moments</h2>
+            </div>
+            <hr class="section-line">
+
+            <!-- 3 Photos -->
+            <div class="photo-grid">
+
+                <figure class="photo-card">
+                    <a href="#lb-0">
+                        <img src="assets/images/lifemoments1.jpeg" alt="Life Moments - Impact Generation">
+                    </a>
+                    <figcaption>
+                        <p>&ldquo;Growing together in faith, finding the meaning
+                            of togetherness, and becoming a better version of
+                            myself with my spiritual family in Impact
+                            Generation.&rdquo;</p>
+                    </figcaption>
+                </figure>
+
+                <figure class="photo-card">
+                    <a href="#lb-1">
+                        <img src="assets/images/lifemoments3.jpeg" alt="Life Moments - Family">
+                    </a>
+                    <figcaption>
+                        <p>&ldquo;In every journey, family will always be the
+                            truest place to return to.&rdquo;</p>
+                    </figcaption>
+                </figure>
+
+                <figure class="photo-card">
+                    <a href="#lb-2">
+                        <img src="assets/images/lifemoments2.jpeg" alt="Life Moments - Cousins">
+                    </a>
+                    <figcaption>
+                        <p>&ldquo;With my cousins&mdash;who are not just family,
+                            but also companions in the journey&mdash;growing,
+                            striving, and chasing a better future
+                            together.&rdquo;</p>
+                    </figcaption>
+                </figure>
+
+            </div>
+
+            <!-- COLLAGE -->
+            <div class="collage-wrap">
+                <h3 class="collage-title">&#9670; MORE MOMENTS &#9670;</h3>
+
+                <!-- Row 1: lm4 + lm5 -->
+                <div class="collage-row collage-row-1">
+                    <a href="#lb-3" style="flex: 1.7;">
+                        <img src="assets/images/lifemoments4.jpeg" alt="Life Moments 4">
+                    </a>
+                    <a href="#lb-4" style="flex: 1;">
+                        <img src="assets/images/lifemoments5.jpeg" alt="Life Moments 5">
+                    </a>
+                </div>
+
+                <!-- Row 2: lm7 + lm8 -->
+                <div class="collage-row collage-row-2">
+                    <a href="#lb-5" style="flex: 0.9;">
+                        <img src="assets/images/lifemoments7.jpeg" alt="Life Moments 7">
+                    </a>
+                    <a href="#lb-6" style="flex: 1.6;">
+                        <img src="assets/images/lifemoments8.jpeg" alt="Life Moments 8">
+                    </a>
+                </div>
+
+                <!-- Row 3: lm9 -->
+                <div class="collage-single" style="margin-bottom: 8px;">
+                    <a href="#lb-7">
+                        <img src="assets/images/lifemoments9.jpeg" alt="Life Moments 9">
+                    </a>
+                </div>
+
+                <!-- Row 4: lm10 + lm12 + lm11 -->
+                <div class="collage-row collage-row-4">
+                    <a href="#lb-8" style="flex: 0.8;">
+                        <img src="assets/images/lifemoments10.jpeg" alt="Life Moments 10">
+                    </a>
+                    <a href="#lb-9" style="flex: 1.6;">
+                        <img src="assets/images/lifemoments12.jpeg" alt="Life Moments 12">
+                    </a>
+                    <a href="#lb-10" style="flex: 0.8;">
+                        <img src="assets/images/lifemoments11.jpeg" alt="Life Moments 11">
+                    </a>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- Divider -->
+        <div class="divider">
+            <span>&#9670; &#9670; &#9670;</span>
+        </div>
+
+
+        <!-- ======================================== -->
+        <!-- CATEGORY 2: ACADEMIC LIFE                -->
+        <!-- ======================================== -->
+        <section class="category-section">
+
+            <div class="section-header">
+                <span>&#9670;&#9670;</span>
+                <h2>Academic Life</h2>
+            </div>
+            <hr class="section-line">
+
+            <!-- Full-width: academiclife2 -->
+            <figure class="full-figure">
+                <a href="#lb-11">
+                    <img src="assets/images/academiclife2.jpeg" alt="Academic Life - IoT Project">
+                </a>
+                <figcaption>
+                    <p>&ldquo;From a simple idea into a real
+                        creation&mdash;learning, experimenting, and growing
+                        together with my team through our first IoT
+                        project.&rdquo;</p>
+                </figcaption>
+            </figure>
+
+            <!-- academiclife1 & 3 -->
+            <div class="academic-duo">
+                <figure>
+                    <a href="#lb-12">
+                        <img src="assets/images/academiclife1.jpeg" alt="Academic Life - Campus">
+                    </a>
+                    <figcaption>
+                        <p>&ldquo;The place where this journey
+                            begins&mdash;where every step, every process, and
+                            every dream slowly shapes my future.&rdquo;</p>
+                    </figcaption>
+                </figure>
+
+                <figure>
+                    <a href="#lb-13">
+                        <img src="assets/images/academiclife3.jpeg" alt="Academic Life - Team">
+                    </a>
+                    <figcaption>
+                        <p>&ldquo;More than just a project&mdash;it's a journey
+                            of understanding, collaboration, and creating
+                            solutions together in the world of
+                            technology.&rdquo;</p>
+                    </figcaption>
+                </figure>
+            </div>
+
+
+            <!-- POLAROID SECTION -->
+            <div class="polaroid-wrap">
+                <p class="polaroid-stars">&#9734; &#9734; &#9734;</p>
+                <h3 class="polaroid-heading">CAMPUS MEMORIES</h3>
+                <p class="polaroid-sub">&#9670; polaroid collection &#9670;</p>
+
+                <!-- Row 1: 3 portraits -->
+                <div class="polaroid-row">
+                    <div class="polaroid polaroid-c1">
+                        <a href="#lb-14">
+                            <img src="assets/images/academiclife4.jpeg" alt="Academic Life 4">
+                        </a>
+                        <p>ber-4</p>
+                    </div>
+                    <div class="polaroid polaroid-c2">
+                        <a href="#lb-15">
+                            <img src="assets/images/academiclife5.jpeg" alt="Academic Life 5">
+                        </a>
+                        <p>Code. Error. Repeat</p>
+                    </div>
+                    <div class="polaroid polaroid-c3">
+                        <a href="#lb-16">
+                            <img src="assets/images/academiclife6.jpeg" alt="Academic Life 6">
+                        </a>
+                        <p>Team no sleep.</p>
+                    </div>
+                </div>
+
+                <!-- Row 2: 2 portraits -->
+                <div class="polaroid-row polaroid-row-2">
+                    <div class="polaroid polaroid-c4">
+                        <a href="#lb-17">
+                            <img src="assets/images/academiclife8.jpeg" alt="Academic Life 8" style="height: 300px;">
+                        </a>
+                        <p>Caffeine &amp; deadlines</p>
+                    </div>
+                    <div class="polaroid polaroid-c5">
+                        <a href="#lb-18">
+                            <img src="assets/images/academiclife10.jpeg" alt="Academic Life 10" style="height: 300px;">
+                        </a>
+                        <p>Decoding pixels</p>
+                    </div>
+                </div>
+
+                <!-- Row 3: 3 landscapes -->
+                <div class="polaroid-row" style="margin-bottom: 0;">
+                    <div class="polaroid polaroid-land polaroid-c6">
+                        <a href="#lb-19">
+                            <img src="assets/images/academiclife7.jpeg" alt="Academic Life 7">
+                        </a>
+                        <p>Nervous but ready.</p>
+                    </div>
+                    <div class="polaroid polaroid-land polaroid-c7">
+                        <a href="#lb-20">
+                            <img src="assets/images/academiclife9.jpeg" alt="Academic Life 9">
+                        </a>
+                        <p>Same journey, different paths</p>
+                    </div>
+                    <div class="polaroid polaroid-land polaroid-c8">
+                        <a href="#lb-21">
+                            <img src="assets/images/academiclife11.jpeg" alt="Academic Life 11">
+                        </a>
+                        <p>Class from anywhere</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- Divider -->
+        <div class="divider">
+            <span>&#9670; &#9670; &#9670;</span>
+        </div>
+
+
+        <!-- ======================================== -->
+        <!-- CATEGORY 3: HOBBIES                      -->
+        <!-- ======================================== -->
+        <section class="category-section">
+
+            <div class="section-header">
+                <span>&#9670;&#9670;</span>
+                <h2>Hobbies</h2>
+            </div>
+            <hr class="section-line">
+
+            <div class="photo-grid">
+
+                <!-- Photo 1 -->
+                <figure class="photo-card hobby-card">
+                    <a href="#lb-22">
+                        <img src="assets/images/hobbies1.jpeg" alt="Hobbies - NCT Dream Playlist">
+                    </a>
+                    <figcaption>
+                        <p class="has-link">&ldquo;A playlist that never fails to accompany my
+                            days&mdash;finding comfort, energy, and a little
+                            escape in every song from NCT Dream.&rdquo;</p>
+                        <a href="https://open.spotify.com/playlist/4xTKW9D7RbOLqweGki0QMo?si=kh08Ttu8RqytMTJxicuqig"
+                            target="_blank" class="spotify-link">&#9835; hear my comfort playlist</a>
+                    </figcaption>
+                </figure>
+
+                <!-- Photo 2 -->
+                <figure class="photo-card hobby-card">
+                    <a href="#lb-23">
+                        <img src="assets/images/hobbies2.jpeg" alt="Hobbies - How to Train Your Dragon">
+                    </a>
+                    <figcaption>
+                        <p>&ldquo;A moment to pause and enjoy the
+                            story&mdash;finding warmth, imagination, and a
+                            little piece of happiness in every scene of How
+                            to Train Your Dragon.&rdquo;</p>
+                    </figcaption>
+                </figure>
+
+                <!-- Photo 3 -->
+                <figure class="photo-card hobby-card">
+                    <a href="#lb-24">
+                        <img src="assets/images/hobbies3.jpeg" alt="Hobbies - NCT Dream Visuals">
+                    </a>
+                    <figcaption>
+                        <p class="has-link">&ldquo;Lost in the visuals, found in the comfort
+                            of EXO and NCT Dream.&rdquo;</p>
+                        <div class="ig-links">
+                            <a href="https://www.instagram.com/nct_dream" target="_blank"
+                                class="ig-link">&#128247; @nct_dream</a>
+                            <a href="https://www.instagram.com/weareone.exo" target="_blank"
+                                class="ig-link">&#128247; @weareone.exo</a>
+                        </div>
+                    </figcaption>
+                </figure>
+
+            </div>
+        </section>
+
+
+        <!-- ============================================ -->
+        <!-- CLOSING QUOTE                                -->
+        <!-- ============================================ -->
+        <section class="closing-section">
+            <div style="margin-bottom: 25px;">
+                <span style="color: #4a90d9; font-size: 18px; letter-spacing: 10px;">
+                    &#9670; &#9670; &#9670;
+                </span>
+            </div>
+            <blockquote>
+                <p>&ldquo;Every photo holds a story, every moment shapes
+                    who I am.&rdquo;</p>
+            </blockquote>
+            <hr>
+        </section>
+
+    </main>
+
+
+    <!-- ============================================ -->
+    <!-- FOOTER                                       -->
+    <!-- ============================================ -->
+    <footer>
+        <p class="footer-brand">BW DIGITAL SPACE</p>
+        <p class="footer-copy">&copy; 2026 Britania Hillary Wenas. All rights reserved.</p>
+    </footer>
+
+</body>
+
+</html>

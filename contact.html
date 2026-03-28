@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - BW Digital Space</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            color: #1a1a2e;
+        }
+
+        /* ========================================== */
+        /* NAVIGATION                                 */
+        /* ========================================== */
+        .navbar {
+            background-color: #1a1a2e;
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .navbar-brand {
+            color: #4a90d9;
+            font-size: 22px;
+            font-weight: bold;
+            letter-spacing: 3px;
+        }
+
+        .navbar-brand a {
+            color: #4a90d9;
+            text-decoration: none;
+        }
+
+        .navbar-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 0;
+        }
+
+        .navbar-links a {
+            color: #8bacd1;
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 15px;
+            letter-spacing: 1px;
+        }
+
+        .navbar-links a.active {
+            color: #4a90d9;
+            font-weight: bold;
+            border-bottom: 2px solid #4a90d9;
+            padding-bottom: 4px;
+        }
+
+        /* ========================================== */
+        /* HERO                                       */
+        /* ========================================== */
+        .hero {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            color: #4a90d9;
+            font-size: 42px;
+            letter-spacing: 8px;
+            margin: 0 0 10px 0;
+            font-weight: 300;
+        }
+
+        .hero hr {
+            width: 80px;
+            border: none;
+            border-top: 3px solid #4a90d9;
+            margin: 15px auto;
+        }
+
+        .hero p {
+            color: #8bacd1;
+            font-size: 16px;
+            letter-spacing: 4px;
+            margin: 0;
+            font-weight: 300;
+        }
+
+        /* ========================================== */
+        /* MAIN CONTENT                               */
+        /* ========================================== */
+        .main-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 50px 40px;
+        }
+
+        /* ========================================== */
+        /* INTRO                                      */
+        /* ========================================== */
+        .intro-section {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .intro-section p {
+            color: #333;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 17px;
+            line-height: 1.9;
+            max-width: 650px;
+            margin: 0 auto;
+            font-style: italic;
+        }
+
+        /* ========================================== */
+        /* CONTACT CARDS                              */
+        /* ========================================== */
+        .contact-row {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .contact-row-last {
+            margin-bottom: 50px;
+        }
+
+        .contact-card {
+            flex: 1;
+            max-width: 450px;
+            min-width: 260px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            border-radius: 16px;
+            padding: 40px 30px;
+            text-align: center;
+            text-decoration: none;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(74, 144, 217, 0.3);
+            display: block;
+        }
+
+        .contact-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 20px auto;
+            background-color: rgba(74, 144, 217, 0.15);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid rgba(74, 144, 217, 0.3);
+        }
+
+        .contact-icon span {
+            font-size: 30px;
+        }
+
+        .contact-icon-fb {
+            font-size: 32px;
+            color: #4a90d9;
+            font-weight: bold;
+            font-family: Georgia, 'Times New Roman', serif;
+        }
+
+        .contact-card h3 {
+            color: #4a90d9;
+            font-size: 14px;
+            letter-spacing: 3px;
+            margin: 0 0 12px 0;
+            font-weight: 600;
+        }
+
+        .contact-card hr {
+            width: 30px;
+            border: none;
+            border-top: 2px solid #4a90d9;
+            margin: 0 auto 15px auto;
+        }
+
+        .contact-card .card-info {
+            color: #8bacd1;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 13px;
+            line-height: 1.6;
+            margin: 0 0 8px 0;
+            word-break: break-all;
+        }
+
+        .contact-card .card-info-lg {
+            font-size: 14px;
+            word-break: normal;
+        }
+
+        .contact-card .card-info-sub {
+            color: #556b8a;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 12px;
+            line-height: 1.6;
+            margin: 0 0 18px 0;
+        }
+
+        .contact-card .card-info-mb {
+            margin-bottom: 18px;
+        }
+
+        .contact-card .card-cta {
+            color: #4a90d9;
+            font-size: 11px;
+            letter-spacing: 2px;
+            margin: 0;
+            font-weight: bold;
+        }
+
+        /* ========================================== */
+        /* DIVIDER                                    */
+        /* ========================================== */
+        .divider {
+            text-align: center;
+            margin: 10px 0 40px 0;
+        }
+
+        .divider span {
+            color: #4a90d9;
+            font-size: 18px;
+            letter-spacing: 10px;
+        }
+
+        /* ========================================== */
+        /* QUICK CONNECT                              */
+        /* ========================================== */
+        .quick-connect {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            margin-bottom: 40px;
+        }
+
+        .quick-connect h3 {
+            color: #ffffff;
+            font-size: 16px;
+            letter-spacing: 4px;
+            margin: 0 0 8px 0;
+            font-weight: 300;
+        }
+
+        .quick-connect hr {
+            width: 40px;
+            border: none;
+            border-top: 2px solid #4a90d9;
+            margin: 0 auto 25px auto;
+        }
+
+        .quick-links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .quick-link {
+            display: inline-block;
+            background-color: rgba(74, 144, 217, 0.15);
+            border: 1px solid rgba(74, 144, 217, 0.3);
+            color: #4a90d9;
+            text-decoration: none;
+            padding: 12px 28px;
+            border-radius: 25px;
+            font-size: 13px;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        .quick-link-fb {
+            font-family: Georgia, 'Times New Roman', serif;
+        }
+
+        /* ========================================== */
+        /* CLOSING QUOTE                              */
+        /* ========================================== */
+        .closing-section {
+            text-align: center;
+            padding: 20px 20px 10px 20px;
+        }
+
+        .closing-section .closing-divider {
+            margin-bottom: 25px;
+        }
+
+        .closing-section .closing-divider span {
+            color: #4a90d9;
+            font-size: 18px;
+            letter-spacing: 10px;
+        }
+
+        .closing-section blockquote {
+            margin: 0;
+            padding: 0;
+        }
+
+        .closing-section blockquote p {
+            color: #0f3460;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 20px;
+            font-style: italic;
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        .closing-section hr {
+            width: 40px;
+            border: none;
+            border-top: 3px solid #4a90d9;
+            margin: 20px auto 0 auto;
+        }
+
+        /* ========================================== */
+        /* FOOTER                                     */
+        /* ========================================== */
+        footer {
+            background-color: #1a1a2e;
+            padding: 25px 40px;
+            text-align: center;
+        }
+
+        footer .footer-brand {
+            color: #4a90d9;
+            font-size: 13px;
+            letter-spacing: 2px;
+            margin: 0 0 5px 0;
+        }
+
+        footer .footer-copy {
+            color: #556b8a;
+            font-size: 12px;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        /* ========================================== */
+        /*  TABLET  (max-width: 768px)                */
+        /* ========================================== */
+        @media (max-width: 768px) {
+
+            .navbar {
+                padding: 14px 20px;
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+            }
+
+            .navbar-brand {
+                font-size: 18px;
+                letter-spacing: 2px;
+            }
+
+            .navbar-links {
+                justify-content: center;
+            }
+
+            .navbar-links a {
+                margin-left: 15px;
+                font-size: 13px;
+            }
+
+            .hero {
+                padding: 40px 20px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+                letter-spacing: 5px;
+            }
+
+            .hero p {
+                font-size: 13px;
+                letter-spacing: 3px;
+            }
+
+            .main-content {
+                padding: 30px 20px;
+            }
+
+            .intro-section {
+                margin-bottom: 35px;
+            }
+
+            .intro-section p {
+                font-size: 15px;
+            }
+
+            .contact-row {
+                gap: 25px;
+            }
+
+            .contact-card {
+                padding: 30px 22px;
+                min-width: 220px;
+            }
+
+            .contact-icon {
+                width: 60px;
+                height: 60px;
+            }
+
+            .contact-icon span {
+                font-size: 26px;
+            }
+
+            .quick-connect {
+                padding: 30px 20px;
+            }
+
+            .quick-connect h3 {
+                font-size: 14px;
+                letter-spacing: 3px;
+            }
+
+            .quick-link {
+                padding: 10px 22px;
+                font-size: 12px;
+                letter-spacing: 1px;
+            }
+
+            .closing-section blockquote p {
+                font-size: 17px;
+            }
+
+            footer {
+                padding: 20px;
+            }
+        }
+
+        /* ========================================== */
+        /*  MOBILE  (max-width: 480px)                */
+        /* ========================================== */
+        @media (max-width: 480px) {
+
+            .navbar {
+                padding: 12px 15px;
+            }
+
+            .navbar-brand {
+                font-size: 15px;
+                letter-spacing: 1px;
+            }
+
+            .navbar-links a {
+                margin: 0 8px;
+                font-size: 12px;
+            }
+
+            .hero {
+                padding: 30px 15px;
+            }
+
+            .hero h1 {
+                font-size: 20px;
+                letter-spacing: 3px;
+            }
+
+            .hero p {
+                font-size: 11px;
+                letter-spacing: 2px;
+            }
+
+            .main-content {
+                padding: 25px 15px;
+            }
+
+            .intro-section {
+                margin-bottom: 30px;
+            }
+
+            .intro-section p {
+                font-size: 14px;
+                line-height: 1.7;
+            }
+
+            .contact-row {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+                margin-bottom: 20px;
+            }
+
+            .contact-row-last {
+                margin-bottom: 35px;
+            }
+
+            .contact-card {
+                width: 100%;
+                max-width: 100%;
+                min-width: unset;
+                padding: 30px 20px;
+            }
+
+            .contact-icon {
+                width: 55px;
+                height: 55px;
+            }
+
+            .contact-icon span {
+                font-size: 24px;
+            }
+
+            .contact-icon-fb {
+                font-size: 26px;
+            }
+
+            .contact-card h3 {
+                font-size: 13px;
+                letter-spacing: 2px;
+            }
+
+            .contact-card .card-info {
+                font-size: 12px;
+            }
+
+            .contact-card .card-info-lg {
+                font-size: 13px;
+            }
+
+            .divider {
+                margin: 10px 0 30px 0;
+            }
+
+            .quick-connect {
+                padding: 25px 15px;
+                margin-bottom: 30px;
+            }
+
+            .quick-connect h3 {
+                font-size: 13px;
+                letter-spacing: 2px;
+            }
+
+            .quick-links {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .quick-link {
+                width: 100%;
+                max-width: 260px;
+                padding: 12px 20px;
+                font-size: 12px;
+                letter-spacing: 1px;
+                text-align: center;
+            }
+
+            .closing-section {
+                padding: 15px 10px 10px 10px;
+            }
+
+            .closing-section blockquote p {
+                font-size: 15px;
+                line-height: 1.7;
+            }
+
+            footer {
+                padding: 18px 15px;
+            }
+
+            footer .footer-brand {
+                font-size: 12px;
+            }
+
+            footer .footer-copy {
+                font-size: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVIGATION BAR -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <a href="index.html">&#9670; BW DIGITAL SPACE</a>
+        </div>
+        <div class="navbar-links">
+            <a href="index.html">HOME</a>
+            <a href="gallery.html">GALLERY</a>
+            <a href="blog.html">BLOG</a>
+            <a href="contact.html" class="active">CONTACT</a>
+        </div>
+    </nav>
+
+
+    <!-- HERO SECTION -->
+    <header class="hero">
+        <h1>LET'S CONNECT</h1>
+        <hr>
+        <p>REACH OUT &bull; COLLABORATE &bull; CONNECT</p>
+    </header>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- INTRO TEXT -->
+        <section class="intro-section">
+            <p>
+                &ldquo;I'd love to hear from you! Whether it's a question,
+                a collaboration idea, or just a friendly hello&mdash;feel free
+                to reach out through any of the channels below.&rdquo;
+            </p>
+        </section>
+
+
+        <!-- Row 1: Email + Instagram -->
+        <section class="contact-row">
+
+            <!-- EMAIL CARD -->
+            <a href="mailto:britaniawenas026@student.unsrat.ac.id" class="contact-card">
+                <div class="contact-icon">
+                    <span>&#9993;</span>
+                </div>
+                <h3>EMAIL</h3>
+                <hr>
+                <p class="card-info">britaniawenas026</p>
+                <p class="card-info card-info-mb">@student.unsrat.ac.id</p>
+                <p class="card-cta">&#9670; CLICK TO SEND &#9670;</p>
+            </a>
+
+            <!-- INSTAGRAM CARD -->
+            <a href="https://www.instagram.com/britnyywnas_" target="_blank" class="contact-card">
+                <div class="contact-icon">
+                    <span>&#128247;</span>
+                </div>
+                <h3>INSTAGRAM</h3>
+                <hr>
+                <p class="card-info card-info-lg card-info-mb">@britnyywnas_</p>
+                <p class="card-cta">&#9670; CLICK TO VISIT &#9670;</p>
+            </a>
+
+        </section>
+
+
+        <!-- Row 2: Facebook -->
+        <section class="contact-row contact-row-last">
+
+            <!-- FACEBOOK CARD -->
+            <a href="https://www.facebook.com/britnyy" target="_blank" class="contact-card">
+                <div class="contact-icon">
+                    <span class="contact-icon-fb">f</span>
+                </div>
+                <h3>FACEBOOK</h3>
+                <hr>
+                <p class="card-info card-info-lg">Britania Wenas</p>
+                <p class="card-info-sub">(Britnyy)</p>
+                <p class="card-cta">&#9670; CLICK TO VISIT &#9670;</p>
+            </a>
+
+        </section>
+
+
+        <!-- Decorative Divider -->
+        <div class="divider">
+            <span>&#9670; &#9670; &#9670;</span>
+        </div>
+
+
+        <!-- QUICK CONNECT -->
+        <section class="quick-connect">
+            <h3>QUICK CONNECT</h3>
+            <hr>
+            <div class="quick-links">
+                <a href="mailto:britaniawenas026@student.unsrat.ac.id" class="quick-link">&#9993; EMAIL ME</a>
+                <a href="https://www.instagram.com/britnyywnas_" target="_blank"
+                    class="quick-link">&#128247; INSTAGRAM</a>
+                <a href="https://www.facebook.com/britania.wenas" target="_blank"
+                    class="quick-link quick-link-fb">f FACEBOOK</a>
+            </div>
+        </section>
+
+
+        <!-- CLOSING QUOTE -->
+        <section class="closing-section">
+            <div class="closing-divider">
+                <span>&#9670; &#9670; &#9670;</span>
+            </div>
+            <blockquote>
+                <p>&ldquo;The best connections start with a simple hello.&rdquo;</p>
+            </blockquote>
+            <hr>
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer>
+        <p class="footer-brand">BW DIGITAL SPACE</p>
+        <p class="footer-copy">&copy; 2026 Britania Hillary Wenas. All rights reserved.</p>
+    </footer>
+
+</body>
+
+</html>

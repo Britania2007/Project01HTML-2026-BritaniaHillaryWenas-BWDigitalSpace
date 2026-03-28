@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - BW Digital Space</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            color: #1a1a2e;
+        }
+
+        /* ========================================== */
+        /* NAVIGATION                                 */
+        /* ========================================== */
+        .navbar {
+            background-color: #1a1a2e;
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .navbar-brand {
+            color: #4a90d9;
+            font-size: 22px;
+            font-weight: bold;
+            letter-spacing: 3px;
+        }
+
+        .navbar-brand a {
+            color: #4a90d9;
+            text-decoration: none;
+        }
+
+        .navbar-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 0;
+        }
+
+        .navbar-links a {
+            color: #8bacd1;
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 15px;
+            letter-spacing: 1px;
+        }
+
+        .navbar-links a.active {
+            color: #4a90d9;
+            font-weight: bold;
+            border-bottom: 2px solid #4a90d9;
+            padding-bottom: 4px;
+        }
+
+        /* ========================================== */
+        /* HERO                                       */
+        /* ========================================== */
+        .hero {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            color: #4a90d9;
+            font-size: 42px;
+            letter-spacing: 8px;
+            margin: 0 0 10px 0;
+            font-weight: 300;
+        }
+
+        .hero hr {
+            width: 80px;
+            border: none;
+            border-top: 3px solid #4a90d9;
+            margin: 15px auto;
+        }
+
+        .hero p {
+            color: #8bacd1;
+            font-size: 16px;
+            letter-spacing: 4px;
+            margin: 0;
+            font-weight: 300;
+        }
+
+        /* ========================================== */
+        /* MAIN CONTENT                               */
+        /* ========================================== */
+        .main-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 50px 40px;
+        }
+
+        /* ========================================== */
+        /* BLOG INTRO                                 */
+        /* ========================================== */
+        .blog-intro {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .blog-intro p {
+            color: #333;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 17px;
+            line-height: 1.9;
+            max-width: 650px;
+            margin: 0 auto;
+            font-style: italic;
+        }
+
+        /* ========================================== */
+        /* ARTICLE PREVIEW CARDS                      */
+        /* ========================================== */
+        .article-card {
+            background-color: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e0e8f0;
+            margin-bottom: 35px;
+            display: flex;
+        }
+
+        .article-card-last {
+            margin-bottom: 50px;
+        }
+
+        .article-img-wrap {
+            display: block;
+            min-width: 300px;
+            max-width: 300px;
+            flex-shrink: 0;
+        }
+
+        .article-img-wrap img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .article-content {
+            padding: 35px 30px;
+            flex: 1;
+        }
+
+        .article-tag {
+            display: inline-block;
+            background-color: rgba(74, 144, 217, 0.1);
+            color: #4a90d9;
+            font-size: 10px;
+            letter-spacing: 2px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            border: 1px solid rgba(74, 144, 217, 0.3);
+            font-weight: 600;
+        }
+
+        .article-content h2 {
+            color: #1a1a2e;
+            font-size: 22px;
+            letter-spacing: 1px;
+            margin: 15px 0 12px 0;
+            line-height: 1.4;
+        }
+
+        .article-content p {
+            color: #555;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 14px;
+            line-height: 1.8;
+            margin: 0 0 20px 0;
+            text-align: justify;
+        }
+
+        .read-more {
+            display: inline-block;
+            color: #4a90d9;
+            text-decoration: none;
+            font-size: 13px;
+            letter-spacing: 2px;
+            font-weight: bold;
+            border-bottom: 2px solid #4a90d9;
+            padding-bottom: 3px;
+        }
+
+        /* ========================================== */
+        /* DIVIDER                                    */
+        /* ========================================== */
+        .divider {
+            text-align: center;
+            margin: 10px 0 50px 0;
+        }
+
+        .divider span {
+            color: #4a90d9;
+            font-size: 18px;
+            letter-spacing: 10px;
+        }
+
+        /* ========================================== */
+        /* VIDEO SECTION                              */
+        /* ========================================== */
+        .video-section {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 40px;
+        }
+
+        .video-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .video-header .stars {
+            color: #8bacd1;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 11px;
+            letter-spacing: 6px;
+            margin: 0 0 5px 0;
+        }
+
+        .video-header h2 {
+            color: #ffffff;
+            font-size: 24px;
+            letter-spacing: 4px;
+            margin: 0 0 5px 0;
+            font-weight: 300;
+        }
+
+        .video-header hr {
+            width: 50px;
+            border: none;
+            border-top: 3px solid #4a90d9;
+            margin: 12px auto;
+        }
+
+        .video-header .sub {
+            color: #8bacd1;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 13px;
+            font-style: italic;
+            letter-spacing: 2px;
+            margin: 0;
+        }
+
+        .video-player-wrap {
+            display: flex;
+            justify-content: center;
+        }
+
+        .video-player {
+            width: 85%;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            border: 3px solid rgba(74, 144, 217, 0.4);
+            position: relative;
+            padding-top: 47.8%;
+        }
+
+        .video-player video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+            background-color: #000;
+            object-fit: cover;
+        }
+
+        .video-caption {
+            text-align: center;
+            color: #556b8a;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 12px;
+            font-style: italic;
+            margin: 18px 0 0 0;
+            letter-spacing: 1px;
+        }
+
+        /* ========================================== */
+        /* CLOSING QUOTE                              */
+        /* ========================================== */
+        .closing-section {
+            text-align: center;
+            padding: 20px 20px 10px 20px;
+        }
+
+        .closing-section .closing-divider {
+            margin-bottom: 25px;
+        }
+
+        .closing-section .closing-divider span {
+            color: #4a90d9;
+            font-size: 18px;
+            letter-spacing: 10px;
+        }
+
+        .closing-section blockquote {
+            margin: 0;
+            padding: 0;
+        }
+
+        .closing-section blockquote p {
+            color: #0f3460;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 20px;
+            font-style: italic;
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        .closing-section hr {
+            width: 40px;
+            border: none;
+            border-top: 3px solid #4a90d9;
+            margin: 20px auto 0 auto;
+        }
+
+        /* ========================================== */
+        /* FOOTER                                     */
+        /* ========================================== */
+        footer {
+            background-color: #1a1a2e;
+            padding: 25px 40px;
+            text-align: center;
+        }
+
+        footer .footer-brand {
+            color: #4a90d9;
+            font-size: 13px;
+            letter-spacing: 2px;
+            margin: 0 0 5px 0;
+        }
+
+        footer .footer-copy {
+            color: #556b8a;
+            font-size: 12px;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        /* ========================================== */
+        /*  TABLET  (max-width: 768px)                */
+        /* ========================================== */
+        @media (max-width: 768px) {
+
+            .navbar {
+                padding: 14px 20px;
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+            }
+
+            .navbar-brand {
+                font-size: 18px;
+                letter-spacing: 2px;
+            }
+
+            .navbar-links {
+                justify-content: center;
+            }
+
+            .navbar-links a {
+                margin-left: 15px;
+                font-size: 13px;
+            }
+
+            .hero {
+                padding: 40px 20px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+                letter-spacing: 5px;
+            }
+
+            .hero p {
+                font-size: 13px;
+                letter-spacing: 3px;
+            }
+
+            .main-content {
+                padding: 30px 20px;
+            }
+
+            .blog-intro {
+                margin-bottom: 35px;
+            }
+
+            .blog-intro p {
+                font-size: 15px;
+            }
+
+            /* Article cards stack vertically */
+            .article-card {
+                flex-direction: column;
+            }
+
+            .article-img-wrap {
+                min-width: unset;
+                max-width: 100%;
+                width: 100%;
+                height: 280px;
+            }
+
+            .article-img-wrap img {
+                height: 280px;
+            }
+
+            .article-content {
+                padding: 25px 22px;
+            }
+
+            .article-content h2 {
+                font-size: 20px;
+            }
+
+            .article-content p {
+                font-size: 13px;
+            }
+
+            .video-section {
+                padding: 30px 20px;
+            }
+
+            .video-header h2 {
+                font-size: 20px;
+                letter-spacing: 3px;
+            }
+
+            .video-player {
+                width: 95%;
+            }
+
+            .closing-section blockquote p {
+                font-size: 17px;
+            }
+
+            footer {
+                padding: 20px;
+            }
+        }
+
+        /* ========================================== */
+        /*  MOBILE  (max-width: 480px)                */
+        /* ========================================== */
+        @media (max-width: 480px) {
+
+            .navbar {
+                padding: 12px 15px;
+            }
+
+            .navbar-brand {
+                font-size: 15px;
+                letter-spacing: 1px;
+            }
+
+            .navbar-links a {
+                margin: 0 8px;
+                font-size: 12px;
+            }
+
+            .hero {
+                padding: 30px 15px;
+            }
+
+            .hero h1 {
+                font-size: 20px;
+                letter-spacing: 3px;
+            }
+
+            .hero p {
+                font-size: 11px;
+                letter-spacing: 2px;
+            }
+
+            .main-content {
+                padding: 25px 15px;
+            }
+
+            .blog-intro {
+                margin-bottom: 30px;
+            }
+
+            .blog-intro p {
+                font-size: 14px;
+                line-height: 1.7;
+            }
+
+            .article-card {
+                margin-bottom: 25px;
+                border-radius: 12px;
+            }
+
+            .article-card-last {
+                margin-bottom: 35px;
+            }
+
+            .article-img-wrap {
+                height: 220px;
+            }
+
+            .article-img-wrap img {
+                height: 220px;
+            }
+
+            .article-content {
+                padding: 20px 16px;
+            }
+
+            .article-tag {
+                font-size: 9px;
+                letter-spacing: 1px;
+                padding: 4px 10px;
+            }
+
+            .article-content h2 {
+                font-size: 18px;
+                margin: 12px 0 10px 0;
+            }
+
+            .article-content p {
+                font-size: 13px;
+                line-height: 1.7;
+                text-align: left;
+                margin-bottom: 15px;
+            }
+
+            .read-more {
+                font-size: 11px;
+                letter-spacing: 1px;
+            }
+
+            .divider {
+                margin: 10px 0 30px 0;
+            }
+
+            .video-section {
+                padding: 25px 15px;
+                margin-bottom: 30px;
+            }
+
+            .video-header {
+                margin-bottom: 20px;
+            }
+
+            .video-header .stars {
+                font-size: 10px;
+                letter-spacing: 4px;
+            }
+
+            .video-header h2 {
+                font-size: 17px;
+                letter-spacing: 2px;
+            }
+
+            .video-header .sub {
+                font-size: 11px;
+                letter-spacing: 1px;
+            }
+
+            .video-player {
+                width: 100%;
+                border-width: 2px;
+                border-radius: 8px;
+            }
+
+            .video-caption {
+                font-size: 11px;
+                margin-top: 12px;
+            }
+
+            .closing-section {
+                padding: 15px 10px 10px 10px;
+            }
+
+            .closing-section blockquote p {
+                font-size: 15px;
+                line-height: 1.7;
+            }
+
+            footer {
+                padding: 18px 15px;
+            }
+
+            footer .footer-brand {
+                font-size: 12px;
+            }
+
+            footer .footer-copy {
+                font-size: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVIGATION BAR -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <a href="index.html">&#9670; BW DIGITAL SPACE</a>
+        </div>
+        <div class="navbar-links">
+            <a href="index.html">HOME</a>
+            <a href="gallery.html">GALLERY</a>
+            <a href="blog.html" class="active">BLOG</a>
+            <a href="contact.html">CONTACT</a>
+        </div>
+    </nav>
+
+
+    <!-- HERO SECTION -->
+    <header class="hero">
+        <h1>MY THOUGHTS</h1>
+        <hr>
+        <p>JOURNEY &bull; GROWTH &bull; PASSION</p>
+    </header>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- BLOG INTRO -->
+        <section class="blog-intro">
+            <p>
+                &ldquo;Welcome to my blog&mdash;a space where I share my journey,
+                thoughts, and the things that inspire me along the way.&rdquo;
+            </p>
+        </section>
+
+
+        <!-- ARTICLE 1 PREVIEW -->
+        <article class="article-card">
+            <a href="blog-post-1.html" class="article-img-wrap">
+                <img src="assets/images/myblog1.jpeg" alt="My Journey in Informatics Engineering">
+            </a>
+            <div class="article-content">
+                <span class="article-tag">PERSONAL JOURNEY</span>
+                <h2>My Journey in Informatics Engineering</h2>
+                <p>
+                    Entering the world of Informatics Engineering was not something
+                    I had planned for a long time. In fact, when I first started,
+                    I had no technical background at all&mdash;the only thing I knew
+                    was how to type in Microsoft Word...
+                </p>
+                <a href="blog-post-1.html" class="read-more">READ MORE &#10095;</a>
+            </div>
+        </article>
+
+
+        <!-- ARTICLE 2 PREVIEW -->
+        <article class="article-card">
+            <a href="blog-post-2.html" class="article-img-wrap">
+                <img src="assets/images/myblog2.jpeg" alt="Life as a Technology Student">
+            </a>
+            <div class="article-content">
+                <span class="article-tag">TECH &amp; STUDENT LIFE</span>
+                <h2>Life as a Technology Student in the Digital Era</h2>
+                <p>
+                    Being a technology student in the digital era is more than
+                    just learning how to code&mdash;it is a journey filled with
+                    challenges, patience, and continuous growth...
+                </p>
+                <a href="blog-post-2.html" class="read-more">READ MORE &#10095;</a>
+            </div>
+        </article>
+
+
+        <!-- ARTICLE 3 PREVIEW -->
+        <article class="article-card article-card-last">
+            <a href="blog-post-3.html" class="article-img-wrap">
+                <img src="assets/images/myblog3.jpeg" alt="Between Code and Calm">
+            </a>
+            <div class="article-content">
+                <span class="article-tag">HOBBIES &amp; LIFESTYLE</span>
+                <h2>Between Code and Calm: Stories I Live Beyond the Screen</h2>
+                <p>
+                    Beyond the academic life filled with assignments, deadlines,
+                    and lines of code that don't always cooperate, I find my own
+                    way to stay grounded&mdash;through the simple things that bring
+                    me peace...
+                </p>
+                <a href="blog-post-3.html" class="read-more">READ MORE &#10095;</a>
+            </div>
+        </article>
+
+
+        <!-- Decorative Divider -->
+        <div class="divider">
+            <span>&#9670; &#9670; &#9670;</span>
+        </div>
+
+
+        <!-- VIDEO INTRODUCTION SECTION -->
+        <section class="video-section">
+            <div class="video-header">
+                <p class="stars">&#9734; &#9734; &#9734;</p>
+                <h2>GET TO KNOW ME</h2>
+                <hr>
+                <p class="sub">&#9670; a short introduction &#9670;</p>
+            </div>
+
+            <div class="video-player-wrap">
+                <div class="video-player">
+                    <video controls>
+                        <source src="assets/images/introduction.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+
+            <p class="video-caption">
+                &ldquo;Hi! This is a short recap video about me.&rdquo;
+            </p>
+        </section>
+
+
+        <!-- CLOSING QUOTE -->
+        <section class="closing-section">
+            <div class="closing-divider">
+                <span>&#9670; &#9670; &#9670;</span>
+            </div>
+            <blockquote>
+                <p>&ldquo;Writing is thinking made visible.&rdquo;</p>
+            </blockquote>
+            <hr>
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer>
+        <p class="footer-brand">BW DIGITAL SPACE</p>
+        <p class="footer-copy">&copy; 2026 Britania Hillary Wenas. All rights reserved.</p>
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BW Digital Space</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            color: #1a1a2e;
+        }
+
+        .navbar {
+            background-color: #1a1a2e;
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .navbar-brand {
+            color: #4a90d9;
+            font-size: 22px;
+            font-weight: bold;
+            letter-spacing: 3px;
+        }
+
+        .navbar-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 0;
+        }
+
+        .navbar-links a {
+            color: #8bacd1;
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 15px;
+            letter-spacing: 1px;
+        }
+
+        .navbar-links a.active {
+            color: #4a90d9;
+            font-weight: bold;
+            border-bottom: 2px solid #4a90d9;
+            padding-bottom: 4px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            padding: 80px 40px;
+            text-align: center;
+        }
+
+        .hero-welcome {
+            color: #8bacd1;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 13px;
+            letter-spacing: 6px;
+            margin: 0 0 15px 0;
+            font-style: italic;
+        }
+
+        .hero-title {
+            color: #4a90d9;
+            font-size: 48px;
+            letter-spacing: 10px;
+            margin: 0 0 10px 0;
+            font-weight: 300;
+        }
+
+        .hero-line {
+            width: 80px;
+            border: none;
+            border-top: 3px solid #4a90d9;
+            margin: 18px auto;
+        }
+
+        .hero-subtitle {
+            color: #8bacd1;
+            font-size: 16px;
+            letter-spacing: 4px;
+            margin: 0 0 30px 0;
+            font-weight: 300;
+        }
+
+        .hero-tagline {
+            color: #556b8a;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 15px;
+            font-style: italic;
+            letter-spacing: 1px;
+            margin: 0 auto;
+            max-width: 500px;
+            line-height: 1.8;
+        }
+
+        .main-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 50px 40px;
+        }
+
+        .profile-section {
+            display: flex;
+            gap: 45px;
+            align-items: flex-start;
+            margin-bottom: 60px;
+        }
+
+        .profile-photo-wrap {
+            flex-shrink: 0;
+        }
+
+        .profile-photo {
+            display: block;
+            width: 300px;
+            height: 380px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 10px 35px rgba(74, 144, 217, 0.3);
+            border: 3px solid #4a90d9;
+        }
+
+        .profile-name {
+            text-align: center;
+            color: #1a1a2e;
+            font-size: 14px;
+            letter-spacing: 3px;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        .profile-role {
+            text-align: center;
+            color: #4a90d9;
+            font-size: 12px;
+            letter-spacing: 2px;
+            margin-top: -8px;
+        }
+
+        .profile-links {
+            text-align: center;
+            margin-top: 8px;
+        }
+
+        .profile-links a {
+            color: #4a90d9;
+            text-decoration: none;
+            font-size: 12px;
+            letter-spacing: 1px;
+            border: 1px solid rgba(74, 144, 217, 0.3);
+            padding: 6px 14px;
+            border-radius: 20px;
+            margin: 0 3px;
+            display: inline-block;
+        }
+
+        .about-me {
+            flex: 1;
+        }
+
+        .about-me h2 {
+            color: #1a1a2e;
+            font-size: 28px;
+            margin: 0 0 5px 0;
+            letter-spacing: 2px;
+        }
+
+        .about-me hr {
+            width: 50px;
+            border: none;
+            border-top: 3px solid #4a90d9;
+            margin: 0 0 20px 0;
+        }
+
+        .about-me .greeting {
+            color: #4a90d9;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 0 0 15px 0;
+        }
+
+        .about-me p {
+            color: #333;
+            font-size: 15px;
+            line-height: 1.8;
+            margin: 0 0 15px 0;
+            text-align: justify;
+        }
+
+        .about-me p:last-child {
+            margin-bottom: 0;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 10px 0 50px 0;
+        }
+
+        .divider span {
+            color: #4a90d9;
+            font-size: 18px;
+            letter-spacing: 10px;
+        }
+
+        .inspires-section {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            margin-bottom: 60px;
+        }
+
+        .inspires-section h2 {
+            color: #ffffff;
+            font-size: 22px;
+            text-align: center;
+            letter-spacing: 3px;
+            margin: 0 0 5px 0;
+            font-weight: 300;
+        }
+
+        .inspires-section > hr {
+            width: 50px;
+            border: none;
+            border-top: 3px solid #4a90d9;
+            margin: 12px auto 30px auto;
+        }
+
+        .inspires-grid {
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .inspire-card {
+            background-color: rgba(74, 144, 217, 0.1);
+            border: 1px solid rgba(74, 144, 217, 0.25);
+            border-radius: 12px;
+            padding: 30px 22px;
+            text-align: center;
+            flex: 1;
+            max-width: 280px;
+            min-width: 220px;
+        }
+
+        .inspire-icon {
+            width: 55px;
+            height: 55px;
+            margin: 0 auto 15px auto;
+            background-color: rgba(74, 144, 217, 0.15);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid rgba(74, 144, 217, 0.3);
+            font-size: 24px;
+        }
+
+        .inspire-card h3 {
+            color: #4a90d9;
+            font-size: 14px;
+            letter-spacing: 2px;
+            margin: 0 0 10px 0;
+        }
+
+        .inspire-card p {
+            color: #8bacd1;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 13px;
+            line-height: 1.7;
+            margin: 0;
+            font-style: italic;
+        }
+
+        .explore-heading {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .explore-heading h2 {
+            color: #1a1a2e;
+            font-size: 22px;
+            letter-spacing: 3px;
+            margin: 0 0 5px 0;
+        }
+
+        .explore-heading hr {
+            width: 50px;
+            border: none;
+            border-top: 3px solid #4a90d9;
+            margin: 12px auto 10px auto;
+        }
+
+        .explore-heading p {
+            color: #8bacd1;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 13px;
+            font-style: italic;
+            letter-spacing: 2px;
+            margin: 0;
+        }
+
+        .explore-grid {
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 60px;
+        }
+
+        .explore-card {
+            flex: 1;
+            max-width: 300px;
+            min-width: 240px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 30px 22px;
+            text-align: center;
+            text-decoration: none;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e0e8f0;
+            display: block;
+        }
+
+        .explore-card .card-icon {
+            color: #4a90d9;
+            font-size: 36px;
+            margin-bottom: 12px;
+        }
+
+        .explore-card h3 {
+            color: #1a1a2e;
+            font-size: 16px;
+            letter-spacing: 3px;
+            margin: 0 0 10px 0;
+        }
+
+        .explore-card hr {
+            width: 30px;
+            border: none;
+            border-top: 2px solid #4a90d9;
+            margin: 0 auto 12px auto;
+        }
+
+        .explore-card p {
+            color: #555;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 13px;
+            line-height: 1.7;
+            margin: 0 0 15px 0;
+            font-style: italic;
+        }
+
+        .explore-card .card-link {
+            color: #4a90d9;
+            font-size: 11px;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+
+        .closing-quote {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            border-radius: 16px;
+            padding: 45px 40px;
+            text-align: center;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            margin-bottom: 20px;
+        }
+
+        .closing-quote .stars {
+            color: #8bacd1;
+            font-size: 11px;
+            letter-spacing: 6px;
+            margin: 0 0 15px 0;
+        }
+
+        .closing-quote blockquote {
+            margin: 0;
+            padding: 0;
+        }
+
+        .closing-quote blockquote p {
+            color: #ffffff;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 22px;
+            font-style: italic;
+            line-height: 1.8;
+            margin: 0 auto;
+            max-width: 600px;
+        }
+
+        .closing-quote hr {
+            width: 40px;
+            border: none;
+            border-top: 3px solid #4a90d9;
+            margin: 20px auto 12px auto;
+        }
+
+        .closing-quote .author {
+            color: #4a90d9;
+            font-size: 12px;
+            letter-spacing: 3px;
+            margin: 0;
+        }
+
+        footer {
+            background-color: #1a1a2e;
+            padding: 25px 40px;
+            text-align: center;
+        }
+
+        footer .footer-brand {
+            color: #4a90d9;
+            font-size: 13px;
+            letter-spacing: 2px;
+            margin: 0 0 5px 0;
+        }
+
+        footer .footer-copy {
+            color: #556b8a;
+            font-size: 12px;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        /* ========================================== */
+        /*  TABLET  (max-width: 768px)                */
+        /* ========================================== */
+        @media (max-width: 768px) {
+
+            .navbar {
+                padding: 14px 20px;
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+            }
+
+            .navbar-brand {
+                font-size: 18px;
+                letter-spacing: 2px;
+            }
+
+            .navbar-links {
+                justify-content: center;
+                gap: 6px 0;
+            }
+
+            .navbar-links a {
+                margin-left: 15px;
+                font-size: 13px;
+            }
+
+            .hero {
+                padding: 50px 20px;
+            }
+
+            .hero-title {
+                font-size: 32px;
+                letter-spacing: 6px;
+            }
+
+            .hero-subtitle {
+                font-size: 13px;
+                letter-spacing: 3px;
+            }
+
+            .hero-tagline {
+                font-size: 14px;
+            }
+
+            .main-content {
+                padding: 30px 20px;
+            }
+
+            .profile-section {
+                flex-direction: column;
+                align-items: center;
+                gap: 30px;
+            }
+
+            .profile-photo-wrap {
+                width: 100%;
+                max-width: 320px;
+            }
+
+            .profile-photo {
+                width: 100%;
+                height: auto;
+                aspect-ratio: 300 / 380;
+            }
+
+            .about-me h2 {
+                text-align: center;
+                font-size: 24px;
+            }
+
+            .about-me hr {
+                margin: 0 auto 20px auto;
+            }
+
+            .about-me .greeting {
+                text-align: center;
+                font-size: 18px;
+            }
+
+            .inspires-section {
+                padding: 30px 20px;
+            }
+
+            .inspire-card {
+                max-width: 100%;
+            }
+
+            .explore-card {
+                max-width: 100%;
+            }
+
+            .closing-quote {
+                padding: 35px 20px;
+            }
+
+            .closing-quote blockquote p {
+                font-size: 18px;
+            }
+        }
+
+        /* ========================================== */
+        /*  MOBILE  (max-width: 480px)                */
+        /* ========================================== */
+        @media (max-width: 480px) {
+
+            .navbar {
+                padding: 12px 15px;
+            }
+
+            .navbar-brand {
+                font-size: 16px;
+                letter-spacing: 1px;
+                text-align: center;
+            }
+
+            .navbar-links {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 8px 0;
+            }
+
+            .navbar-links a {
+                margin-left: 10px;
+                margin-right: 10px;
+                font-size: 12px;
+            }
+
+            .hero {
+                padding: 40px 15px;
+            }
+
+            .hero-welcome {
+                font-size: 11px;
+                letter-spacing: 4px;
+            }
+
+            .hero-title {
+                font-size: 22px;
+                letter-spacing: 4px;
+            }
+
+            .hero-subtitle {
+                font-size: 11px;
+                letter-spacing: 2px;
+            }
+
+            .hero-tagline {
+                font-size: 13px;
+            }
+
+            .main-content {
+                padding: 25px 15px;
+            }
+
+            .profile-section {
+                gap: 25px;
+                margin-bottom: 40px;
+            }
+
+            .profile-photo-wrap {
+                max-width: 100%;
+            }
+
+            .profile-photo {
+                width: 100%;
+                height: auto;
+                aspect-ratio: 3 / 4;
+            }
+
+            .profile-name {
+                font-size: 12px;
+                letter-spacing: 2px;
+            }
+
+            .about-me h2 {
+                font-size: 22px;
+            }
+
+            .about-me .greeting {
+                font-size: 16px;
+            }
+
+            .about-me p {
+                font-size: 14px;
+                text-align: left;
+            }
+
+            .inspires-section {
+                padding: 25px 15px;
+                margin-bottom: 40px;
+            }
+
+            .inspires-section h2 {
+                font-size: 18px;
+                letter-spacing: 2px;
+            }
+
+            .inspires-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .inspire-card {
+                min-width: unset;
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .explore-grid {
+                flex-direction: column;
+                align-items: center;
+                margin-bottom: 40px;
+            }
+
+            .explore-card {
+                min-width: unset;
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .explore-heading h2 {
+                font-size: 18px;
+                letter-spacing: 2px;
+            }
+
+            .divider {
+                margin: 10px 0 30px 0;
+            }
+
+            .closing-quote {
+                padding: 30px 15px;
+            }
+
+            .closing-quote blockquote p {
+                font-size: 16px;
+                line-height: 1.7;
+            }
+
+            .closing-quote .author {
+                font-size: 10px;
+                letter-spacing: 2px;
+            }
+
+            footer {
+                padding: 20px 15px;
+            }
+
+            footer .footer-brand {
+                font-size: 12px;
+            }
+
+            footer .footer-copy {
+                font-size: 11px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVIGATION BAR -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            &#9670; BW DIGITAL SPACE
+        </div>
+        <div class="navbar-links">
+            <a href="index.html" class="active">HOME</a>
+            <a href="gallery.html">GALLERY</a>
+            <a href="blog.html">BLOG</a>
+            <a href="contact.html">CONTACT</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="hero">
+        <p class="hero-welcome">welcome to</p>
+        <h1 class="hero-title">BW DIGITAL SPACE</h1>
+        <hr class="hero-line">
+        <p class="hero-subtitle">ACADEMIC &bull; LIFE &bull; HOBBIES</p>
+        <p class="hero-tagline">
+            &ldquo;A personal digital space where technology,
+            music, and stories come together.&rdquo;
+        </p>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- PROFILE SECTION -->
+        <section class="profile-section">
+
+            <!-- LEFT: Profile Photo -->
+            <div class="profile-photo-wrap">
+                <img src="assets/images/profile.jpeg"
+                     alt="Britania Hillary Wenas"
+                     class="profile-photo">
+
+                <p class="profile-name">BRITANIA HILLARY WENAS</p>
+                <p class="profile-role">Informatics Engineering Student</p>
+
+                <div class="profile-links">
+                    <a href="mailto:britaniawenas026@student.unsrat.ac.id">&#9993; Email</a>
+                    <a href="https://www.instagram.com/britnyywnas_" target="_blank">&#128247; IG</a>
+                </div>
+            </div>
+
+            <!-- RIGHT: About Me -->
+            <div class="about-me">
+                <h2>About Me</h2>
+                <hr>
+                <p class="greeting">Hi, I'm Britaniaa!</p>
+                <p>
+                    A fourth-semester Informatics Engineering student at
+                    <strong style="color: #0f3460;">Universitas Sam Ratulangi</strong>,
+                    from Manado, North Sulawesi, Indonesia.
+                </p>
+                <p>
+                    I live between logic and emotion&mdash;where lines of code shape ideas,
+                    and music and movies give them meaning. As a technology student, I enjoy
+                    learning how things work, building simple projects, and exploring the
+                    digital world.
+                </p>
+                <p>
+                    While coding is part of my journey, I'm more drawn to the creative and
+                    expressive side of technology&mdash;how digital platforms can tell stories,
+                    create experiences, and connect people in meaningful ways.
+                </p>
+                <p>
+                    Beyond academics, I find comfort and inspiration in K-pop and cinematic
+                    stories that reflect real-life emotions.
+                </p>
+            </div>
+        </section>
+
+        <!-- Decorative Divider -->
+        <div class="divider">
+            <span>&#9670; &#9670; &#9670;</span>
+        </div>
+
+        <!-- WHAT INSPIRES ME -->
+        <section class="inspires-section">
+            <h2>What Inspires Me</h2>
+            <hr>
+            <div class="inspires-grid">
+
+                <!-- Card 1: Technology -->
+                <div class="inspire-card">
+                    <div class="inspire-icon">
+                        <span>&#9881;</span>
+                    </div>
+                    <h3>TECHNOLOGY</h3>
+                    <p>The blend of creativity and logic that shapes the digital world</p>
+                </div>
+
+                <!-- Card 2: Music -->
+                <div class="inspire-card">
+                    <div class="inspire-icon">
+                        <span>&#9835;</span>
+                    </div>
+                    <h3>MUSIC</h3>
+                    <p>A daily companion that heals, energizes, and brings comfort</p>
+                </div>
+
+                <!-- Card 3: Stories -->
+                <div class="inspire-card">
+                    <div class="inspire-icon">
+                        <span>&#9733;</span>
+                    </div>
+                    <h3>STORIES</h3>
+                    <p>Movies and cinematic worlds that reflect real-life emotions</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXPLORE MY SPACE -->
+        <section>
+            <div class="explore-heading">
+                <h2>Explore My Space</h2>
+                <hr>
+                <p>discover more about me</p>
+            </div>
+
+            <div class="explore-grid">
+
+                <!-- Gallery Card -->
+                <a href="gallery.html" class="explore-card">
+                    <div class="card-icon">&#9670;&#9670;</div>
+                    <h3>GALLERY</h3>
+                    <hr>
+                    <p>Photos of life moments, academic journey, and hobbies</p>
+                    <span class="card-link">VIEW GALLERY &#10095;</span>
+                </a>
+
+                <!-- Blog Card -->
+                <a href="blog.html" class="explore-card">
+                    <div class="card-icon">&#9670;&#9670;</div>
+                    <h3>BLOG</h3>
+                    <hr>
+                    <p>Stories, reflections, and thoughts about my journey</p>
+                    <span class="card-link">READ BLOG &#10095;</span>
+                </a>
+
+                <!-- Contact Card -->
+                <a href="contact.html" class="explore-card">
+                    <div class="card-icon">&#9670;&#9670;</div>
+                    <h3>CONTACT</h3>
+                    <hr>
+                    <p>Let's connect through email, Instagram, or Facebook</p>
+                    <span class="card-link">GET IN TOUCH &#10095;</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Decorative Divider -->
+        <div class="divider">
+            <span>&#9670; &#9670; &#9670;</span>
+        </div>
+
+        <!-- CLOSING QUOTE -->
+        <section class="closing-quote">
+            <p class="stars">&#9734; &#9734; &#9734;</p>
+            <blockquote>
+                <p>
+                    &ldquo;This is my digital space&mdash;where technology, music,
+                    and stories come together.&rdquo;
+                </p>
+            </blockquote>
+            <hr>
+            <p class="author">&mdash; BRITANIA HILLARY WENAS &mdash;</p>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p class="footer-brand">BW DIGITAL SPACE</p>
+        <p class="footer-copy">&copy; 2026 Britania Hillary Wenas. All rights reserved.</p>
+    </footer>
+
+</body>
+
+</html>

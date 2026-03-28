@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Between Code and Calm - BW Digital Space</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            color: #1a1a2e;
+        }
+
+        /* ========================================== */
+        /* NAVIGATION                                 */
+        /* ========================================== */
+        .navbar {
+            background-color: #1a1a2e;
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .navbar-brand {
+            color: #4a90d9;
+            font-size: 22px;
+            font-weight: bold;
+            letter-spacing: 3px;
+        }
+
+        .navbar-brand a {
+            color: #4a90d9;
+            text-decoration: none;
+        }
+
+        .navbar-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 0;
+        }
+
+        .navbar-links a {
+            color: #8bacd1;
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 15px;
+            letter-spacing: 1px;
+        }
+
+        .navbar-links a.active {
+            color: #4a90d9;
+            font-weight: bold;
+            border-bottom: 2px solid #4a90d9;
+            padding-bottom: 4px;
+        }
+
+        /* ========================================== */
+        /* HERO                                       */
+        /* ========================================== */
+        .hero {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            background-color: rgba(74, 144, 217, 0.15);
+            color: #4a90d9;
+            font-size: 10px;
+            letter-spacing: 2px;
+            padding: 5px 14px;
+            border-radius: 20px;
+            border: 1px solid rgba(74, 144, 217, 0.3);
+            font-weight: 600;
+        }
+
+        .hero h1 {
+            color: #ffffff;
+            font-size: 32px;
+            letter-spacing: 3px;
+            margin: 20px auto 10px auto;
+            font-weight: 300;
+            max-width: 750px;
+            line-height: 1.4;
+        }
+
+        .hero hr {
+            width: 60px;
+            border: none;
+            border-top: 3px solid #4a90d9;
+            margin: 15px auto;
+        }
+
+        .hero-meta {
+            color: #8bacd1;
+            font-size: 12px;
+            letter-spacing: 3px;
+            margin: 0;
+        }
+
+        /* ========================================== */
+        /* MAIN CONTENT                               */
+        /* ========================================== */
+        .main-content {
+            max-width: 750px;
+            margin: 0 auto;
+            padding: 50px 40px;
+        }
+
+        /* ========================================== */
+        /* BACK LINK                                  */
+        /* ========================================== */
+        .back-link {
+            display: inline-block;
+            color: #4a90d9;
+            text-decoration: none;
+            font-size: 13px;
+            letter-spacing: 2px;
+            font-weight: bold;
+            margin-bottom: 35px;
+        }
+
+        /* ========================================== */
+        /* ARTICLE                                    */
+        /* ========================================== */
+        .article-body p {
+            color: #333;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 15px;
+            line-height: 2;
+            margin: 0 0 25px 0;
+            text-align: justify;
+        }
+
+        .article-body .section-p {
+            margin-bottom: 20px;
+        }
+
+        .drop-cap {
+            font-size: 50px;
+            float: left;
+            line-height: 1;
+            padding-right: 10px;
+            color: #4a90d9;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-weight: bold;
+        }
+
+        .article-body h3 {
+            color: #0f3460;
+            font-size: 18px;
+            letter-spacing: 2px;
+            margin: 35px 0 15px 0;
+            border-left: 4px solid #4a90d9;
+            padding-left: 15px;
+        }
+
+        .article-body strong {
+            color: #0f3460;
+        }
+
+        /* ========================================== */
+        /* BLOCKQUOTE                                 */
+        /* ========================================== */
+        .article-quote {
+            background-color: rgba(74, 144, 217, 0.08);
+            border-left: 4px solid #4a90d9;
+            padding: 25px 30px;
+            margin: 35px 0;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .article-quote p {
+            color: #0f3460;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 16px;
+            line-height: 1.8;
+            margin: 0;
+            font-style: italic;
+        }
+
+        /* ========================================== */
+        /* POST NAVIGATION                            */
+        /* ========================================== */
+        .post-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #e0e8f0;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .post-nav a {
+            color: #4a90d9;
+            text-decoration: none;
+            font-size: 13px;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+
+        /* ========================================== */
+        /* FOOTER                                     */
+        /* ========================================== */
+        footer {
+            background-color: #1a1a2e;
+            padding: 25px 40px;
+            text-align: center;
+        }
+
+        footer .footer-brand {
+            color: #4a90d9;
+            font-size: 13px;
+            letter-spacing: 2px;
+            margin: 0 0 5px 0;
+        }
+
+        footer .footer-copy {
+            color: #556b8a;
+            font-size: 12px;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        /* ========================================== */
+        /*  TABLET  (max-width: 768px)                */
+        /* ========================================== */
+        @media (max-width: 768px) {
+
+            .navbar {
+                padding: 14px 20px;
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+            }
+
+            .navbar-brand {
+                font-size: 18px;
+                letter-spacing: 2px;
+            }
+
+            .navbar-links {
+                justify-content: center;
+            }
+
+            .navbar-links a {
+                margin-left: 15px;
+                font-size: 13px;
+            }
+
+            .hero {
+                padding: 40px 20px;
+            }
+
+            .hero h1 {
+                font-size: 24px;
+                letter-spacing: 2px;
+            }
+
+            .hero-meta {
+                font-size: 11px;
+                letter-spacing: 2px;
+            }
+
+            .main-content {
+                padding: 35px 20px;
+            }
+
+            .article-body p {
+                font-size: 14px;
+                line-height: 1.9;
+            }
+
+            .drop-cap {
+                font-size: 42px;
+            }
+
+            .article-body h3 {
+                font-size: 16px;
+                letter-spacing: 1px;
+            }
+
+            .article-quote {
+                padding: 20px 22px;
+            }
+
+            .article-quote p {
+                font-size: 15px;
+            }
+
+            .post-nav a {
+                font-size: 12px;
+                letter-spacing: 1px;
+            }
+
+            footer {
+                padding: 20px;
+            }
+        }
+
+        /* ========================================== */
+        /*  MOBILE  (max-width: 480px)                */
+        /* ========================================== */
+        @media (max-width: 480px) {
+
+            .navbar {
+                padding: 12px 15px;
+            }
+
+            .navbar-brand {
+                font-size: 15px;
+                letter-spacing: 1px;
+            }
+
+            .navbar-links a {
+                margin: 0 8px;
+                font-size: 12px;
+            }
+
+            .hero {
+                padding: 30px 15px;
+            }
+
+            .hero-tag {
+                font-size: 9px;
+                letter-spacing: 1px;
+                padding: 4px 10px;
+            }
+
+            .hero h1 {
+                font-size: 19px;
+                letter-spacing: 1px;
+                margin: 15px auto 8px auto;
+                line-height: 1.5;
+            }
+
+            .hero-meta {
+                font-size: 10px;
+                letter-spacing: 2px;
+            }
+
+            .main-content {
+                padding: 25px 15px;
+            }
+
+            .back-link {
+                font-size: 11px;
+                letter-spacing: 1px;
+                margin-bottom: 25px;
+            }
+
+            .article-body p {
+                font-size: 14px;
+                line-height: 1.8;
+                text-align: left;
+                margin-bottom: 20px;
+            }
+
+            .drop-cap {
+                font-size: 36px;
+                padding-right: 8px;
+            }
+
+            .article-body h3 {
+                font-size: 15px;
+                letter-spacing: 1px;
+                margin: 25px 0 12px 0;
+                padding-left: 12px;
+            }
+
+            .article-quote {
+                padding: 18px 16px;
+                margin: 25px 0;
+                border-radius: 0 8px 8px 0;
+            }
+
+            .article-quote p {
+                font-size: 14px;
+                line-height: 1.7;
+            }
+
+            .post-nav {
+                margin-top: 35px;
+                padding-top: 20px;
+                justify-content: center;
+                gap: 12px;
+            }
+
+            .post-nav a {
+                font-size: 11px;
+                letter-spacing: 1px;
+            }
+
+            footer {
+                padding: 18px 15px;
+            }
+
+            footer .footer-brand {
+                font-size: 12px;
+            }
+
+            footer .footer-copy {
+                font-size: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAV BAR -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <a href="index.html">&#9670; BW DIGITAL SPACE</a>
+        </div>
+        <div class="navbar-links">
+            <a href="index.html">HOME</a>
+            <a href="gallery.html">GALLERY</a>
+            <a href="blog.html" class="active">BLOG</a>
+            <a href="contact.html">CONTACT</a>
+        </div>
+    </nav>
+
+
+    <!-- HERO -->
+    <header class="hero">
+        <span class="hero-tag">HOBBIES &amp; LIFESTYLE</span>
+        <h1>Between Code and Calm: Stories I Live Beyond the Screen</h1>
+        <hr>
+        <p class="hero-meta">ARTICLE 03 &bull; BW DIGITAL SPACE</p>
+    </header>
+
+
+    <!-- ARTICLE CONTENT -->
+    <main class="main-content">
+
+        <a href="blog.html" class="back-link">&#10094; BACK TO BLOG</a>
+
+        <article class="article-body">
+
+            <!-- Drop Cap Paragraph -->
+            <p>
+                <span class="drop-cap">B</span>eyond the academic life filled with assignments,
+                deadlines, and lines of code that don't always cooperate,
+                I find my own way to stay grounded&mdash;through the simple
+                things that bring me peace.
+            </p>
+
+            <!-- Section: Music -->
+            <h3>Music: My Daily Healing</h3>
+
+            <p class="section-p">
+                One of them is music. For me, music is not just entertainment,
+                but a form of healing from burnout. I can listen to music almost
+                24/7. In every lyric and melody, there is a sense of
+                comfort&mdash;as if I'm never truly alone. Music helps calm my
+                mind, reduce stress, and recharge my energy to keep going.
+            </p>
+
+            <!-- Section: Movies -->
+            <h3>Movies: Tension &amp; Warmth</h3>
+
+            <p class="section-p">
+                Aside from music, I also enjoy watching movies, especially in the
+                survival thriller genre. These kinds of films make me think
+                deeper&mdash;how people face disasters, survive in difficult
+                situations, and find solutions in uncertainty. They bring both
+                tension and valuable lessons about critical thinking under pressure.
+            </p>
+
+            <p class="section-p">
+                On the other hand, I also love animated movies like
+                <em>Cars</em> and <em>How to Train Your Dragon</em>. These
+                films offer a warm, simple, yet meaningful experience&mdash;reminding
+                me that not everything has to be complicated to be meaningful.
+            </p>
+
+            <!-- Section: K-pop -->
+            <h3>K-pop: A World of Its Own</h3>
+
+            <p class="section-p">
+                And of course, one of the biggest parts of my hobbies is K-pop.
+                My journey started with <strong>EXO</strong>,
+                the group that first introduced me to this world. My first bias
+                was <em>Park Chanyeol</em>. From EXO, I learned about genuine
+                friendship and trust.
+            </p>
+
+            <p class="section-p">
+                As time passed, when EXO went on hiatus due to military service,
+                I discovered <strong>NCT Dream</strong>.
+                I instantly loved their music&mdash;it's mostly easy listening and
+                carries uplifting messages for young people navigating life. My
+                bias in NCT Dream is <em>Lee Jeno</em>.
+            </p>
+
+            <p class="section-p">
+                Until now, both EXO and NCT remain part of my journey. In the
+                middle of academic stress, they are always there&mdash;through
+                melodies, lyrics, and music&mdash;becoming a constant companion
+                during my most exhausting days.
+            </p>
+
+            <!-- Closing Quote -->
+            <blockquote class="article-quote">
+                <p>
+                    &ldquo;In the end, being a student is not only about studying
+                    and achieving grades, but also about finding the little things
+                    that keep us going. And for me, those things are music, movies,
+                    and the world of K-pop.&rdquo;
+                </p>
+            </blockquote>
+
+        </article>
+
+        <!-- Navigation -->
+        <div class="post-nav">
+            <a href="blog-post-2.html">&#10094; PREV ARTICLE</a>
+            <a href="blog.html">ALL POSTS &#10095;</a>
+        </div>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer>
+        <p class="footer-brand">BW DIGITAL SPACE</p>
+        <p class="footer-copy">&copy; 2025 Britania Hillary Wenas. All rights reserved.</p>
+    </footer>
+
+</body>
+
+</html>
